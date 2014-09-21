@@ -1,13 +1,10 @@
-library(shiny)
-library(dplyr)
 
 shinyServer(function(input, output, session) {
 
     output$stationtable <- renderDataTable({
         stnstable %.%
             filter(
-                #is.null(input$statelist) | State %in% input$statelist
-                State %in% input$statelist
+                is.null(input$statelist) | State %in% input$statelist
             )
     })
     

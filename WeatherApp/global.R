@@ -1,8 +1,7 @@
 # per application stuff
-library(shiny)
-library(dplyr)
-library(reshape2)
-library(data.table)
+library(shiny, quietly = T)
+library(dplyr,quietly = T)
+library(reshape2, quietly = T)
 
 load("data/ALL.dat")
 

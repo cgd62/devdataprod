@@ -1,8 +1,7 @@
-library(shiny)
 
 shinyUI(
     fluidPage(
-        titlePanel("US Weather History (GSN)"),
+        titlePanel("US Weather History (GSN) (runs slowly)"),
         
         HTML("<a href='./Help.html'>Help</a>"),
         
