@@ -1,0 +1,10 @@
+---
+title: "Weather App Help"
+output: html_document
+---
+
+To use the app, input or select each state you would like to see the weather stations and measurements for.  If you select multiple states, the list will be cumulative and the measurements will be reported as means across all the stations in the state
+
+It can take a few seconds for the subset of the data to be selected and crunched before plotting, so be patient.
+
+There are Shiny artifacts I don't like that I didn't have time to figure out.  Be nice..  ;-)

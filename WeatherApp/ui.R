@@ -4,7 +4,7 @@ shinyUI(
     fluidPage(
         titlePanel("US Weather History (GSN)"),
         
-        HTML("<a href='http://www.odochartaigh.org'>Help</a>"),
+        HTML("<a href='./Help.html'>Help</a>"),
         
         column(4,
                wellPanel(

@@ -4,11 +4,6 @@ library(dplyr)
 library(reshape2)
 library(data.table)
 
-
-#countries <- readRDS("data/countries.rds")
-#states <- readRDS("data/states.rds")
-#stns <- readRDS("data/stns.rds")
-#meas <- readRDS("data/meas.rds")
 load("data/ALL.dat")
 
 bdate <- "2000-01-01"
