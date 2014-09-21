@@ -1,0 +1,109 @@
+---
+title: "What Makes It Rain In San Francisco"
+author: "C. G. Doherty"
+date: "Friday, September 19, 2014"
+output: ioslides_presentation
+---
+
+## References
+
+Descriptions:
+https://gis.ncdc.noaa.gov/geoportal/catalog/search/resource/details.page?id=gov.noaa.ncdc:C00861
+http://www.wmo.int/pages/prog/gcos/Publications/GCOS-144_en.pdf
+
+Original Paper:
+Menne, M.J., I. Durre, R.S. Vose, B.E. Gleason, and T.G. Houston, 2012a:  An overview 
+of the Global Historical Climatology Network-Daily Database.  Journal of Atmospheric 
+and Oceanic Technology, 29, 897-910.
+
+Dataset Version:
+Menne, M.J., I. Durre, B. Korzeniewski, S. McNeal, K. Thomas, X. Yin, S. Anthony, R. Ray, 
+R.S. Vose, B.E.Gleason, and T.G. Houston, 2012: Global Historical Climatology Network - 
+Daily (GHCN-Daily), Version 3.12-upd-2014091905.
+ftp://ftp.ncdc.noaa.gov/pub/data/ghcn/daily/ghcnd_gsn.tar.gz
+
+
+## Load Data
+
+library(LaF)
+
+if(!file.exists("weatherbase.sav")) {
+fd <- laf_open_fwf("ghcnd-stations.txt",
+        column_widths=c(12,9,10,7,3,30),
+        column_names=c("id","lat","lon","elev","state","name"),
+        column_types=c("string","double","double","double","categorical","string"),
+        trim=T)
+stns <- fd[,]
+        
+fd <- laf_open_fwf("ghcnd-countries.txt",
+        column_widths=c(3,45),
+        column_names=c("code","name"),
+        column_types=c("string","string"),
+        trim=T)
+countries <- fd[,]
+
+fd <- laf_open_fwf("ghcnd-states.txt",
+        column_widths=c(3,45),
+        column_names=c("code","name"),
+        column_types=c("string","string"),
+        trim=T)
+states <- fd[,]
+
+fd <- laf_open_fwf("ghcnd-inventory.txt",
+        column_widths=c(12,9,10,5,5,4),
+        column_names=c("id","lat","lon","element","firstyear","lastyear"),
+        column_types=c("string","double","double","string","integer","integer"),
+        trim=T)
+inv <- fd[,]
+
+fd <- laf_open_fwf("core.dly",
+        column_widths=c(11,4,2,4,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1,5,1,1,1),
+        column_types=c("string","integer","integer","factor","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string","double","string","string","string"),
+        trim=T)
+meas <- fd[,]
+    save(list=c("stns","countries","states","inv","meas"),file="weatherbase.sav")
+} else {
+    load("weatherbase.sav")
+}
+
+if(!file.exists("weathermeas.sav")) {
+    measures <- c( )
+    restart <- 0
+} else {
+    load("weathermeas.sav")
+    restart <- nrow(measures)
+}
+
+for(i in restart+1:nrow(meas)) {
+    for(j in 0:30) {
+        beg <- 5+4*j
+        end <- 8+4*j
+        if(meas[i,beg] == -9999)
+            next
+        end <- 8+4*j
+        row <- c(meas[i,1],
+                strptime(paste(meas[i,2:3],j+1),"%Y %m %d",tz="GMT"),
+                meas[i,4],
+                meas[i,beg:end])
+        measures <- rbind(measures,row)
+    }
+    if(!(i %% 100)) {
+        save(list="measures",file="weathermeas.sav")
+        paste(i,"months processed at",date())
+        flush(stdout())
+    }
+}
+
+
+## Slide with R Code and Output
+
+```{r}
+summary(cars)
+```
+
+## Slide with Plot
+
+```{r, echo=FALSE}
+plot(cars)
+```
+
