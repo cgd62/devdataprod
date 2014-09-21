@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>A Shiny U.S. Weather Data Browser</title>
+  <meta charset="utf-8">
+  <meta name="description" content="A Shiny U.S. Weather Data Browser">
+  <meta name="author" content="C. G. Doherty">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="http://slidifylibraries2.googlecode.com/git/inst/libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="http://slidifylibraries2.googlecode.com/git/inst/libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="http://slidifylibraries2.googlecode.com/git/inst/libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="http://slidifylibraries2.googlecode.com/git/inst/libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="http://slidifylibraries2.googlecode.com/git/inst/libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="http://slidifylibraries2.googlecode.com/git/inst/libraries/frameworks/io2012/js/slides" 
+    src="http://slidifylibraries2.googlecode.com/git/inst/libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>A Shiny U.S. Weather Data Browser</h1>
+    <h2></h2>
+    <p>C. G. Doherty<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>US Weather History</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>There is an online data set of worldwide weather data at Global Historical Climatology Network.</p>
+
+<p>A subset of the daily records of things such as temperature and precipitation is made to include just the U.S. by state for all weather stations in the Ground Survey Network (GSN) of stations.</p>
+
+<p>The GSN is a subset of ground stations worldwide that try to divide the geography of the planet into approximately 2.5 degrees of lat/lon.</p>
+
+<p>This app allows one to browse weather station records by set of states and date range.  It takes the set of states specified and computes MEAN&#39;s for the weather metrics across all stations in the selected set of states.</p>
+
+<p>Some states do not have a GSN weather station in them so it is possible for a state to have no weather metrics.  This is not a bug.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Data Wrangling Script</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Much work needed to be done to convert the data file, <a href="ftp://ftp.ncdc.noaa.gov/pub/data/ghcn/daily/ghcnd_gsn.tar.gz">ftp://ftp.ncdc.noaa.gov/pub/data/ghcn/daily/ghcnd_gsn.tar.gz</a>, to a manageable subset and compressed into a small R data image.</p>
+
+<p>Converts from GHCN-GSN</p>
+
+<p>See loaddata.R source code at: <a href="https://github.com/cgd62/devdataprod/blob/master/loaddata.R">https://github.com/cgd62/devdataprod/blob/master/loaddata.R</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>References</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Descriptions:</p>
+
+<p><a href="https://gis.ncdc.noaa.gov/geoportal/catalog/search/resource/details.page?id=gov.noaa.ncdc:C00861">https://gis.ncdc.noaa.gov/geoportal/catalog/search/resource/details.page?id=gov.noaa.ncdc:C00861</a></p>
+
+<p><a href="http://www.wmo.int/pages/prog/gcos/Publications/GCOS-144_en.pdf">http://www.wmo.int/pages/prog/gcos/Publications/GCOS-144_en.pdf</a></p>
+
+<p>Original Paper Describing the GHCN Database:</p>
+
+<p>Menne, M.J., I. Durre, R.S. Vose, B.E. Gleason, and T.G. Houston, 2012a:  An overview 
+of the Global Historical Climatology Network-Daily Database.  Journal of Atmospheric 
+and Oceanic Technology, 29, 897-910.</p>
+
+<p>Dataset Version:</p>
+
+<p>Menne, M.J., I. Durre, B. Korzeniewski, S. McNeal, K. Thomas, X. Yin, S. Anthony, R. Ray, 
+R.S. Vose, B.E.Gleason, and T.G. Houston, 2012: Global Historical Climatology Network - 
+Daily (GHCN-Daily), Version 3.12-upd-2014091905.
+<a href="ftp://ftp.ncdc.noaa.gov/pub/data/ghcn/daily/ghcnd_gsn.tar.gz">ftp://ftp.ncdc.noaa.gov/pub/data/ghcn/daily/ghcnd_gsn.tar.gz</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Slide with R Code and Output</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>R Information about the data set</p>
+
+<pre><code class="r">load(&quot;WeatherApp/data/All.dat&quot;)
+</code></pre>
+
+<p>There are 74 states or regions.</p>
+
+<p>There are 90 total.</p>
+
+<p>There are 11299073 total measurements for the above states and stations.</p>
+
+<p>The date range of measurements is 1857-09-01 to 2014-09-18</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='US Weather History'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Data Wrangling Script'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='References'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Slide with R Code and Output'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="http://slidifylibraries2.googlecode.com/git/inst/libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

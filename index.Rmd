@@ -1,5 +1,5 @@
 ---
-title: "What Makes It Rain In San Francisco"
+title: "A Shiny U.S. Weather Data Browser"
 author: "C. G. Doherty"
 date: "Friday, September 19, 2014"
 output: ioslides_presentation
@@ -7,20 +7,44 @@ output: ioslides_presentation
 
 ## US Weather History
 
+There is an online data set of worldwide weather data at Global Historical Climatology Network.
+
+A subset of the daily records of things such as temperature and precipitation is made to include just the U.S. by state for all weather stations in the Ground Survey Network (GSN) of stations.
+
+The GSN is a subset of ground stations worldwide that try to divide the geography of the planet into approximately 2.5 degrees of lat/lon.
+
+This app allows one to browse weather station records by set of states and date range.  It takes the set of states specified and computes MEAN's for the weather metrics across all stations in the selected set of states.
+
+Some states do not have a GSN weather station in them so it is possible for a state to have no weather metrics.  This is not a bug.
+
+---
+
+## Data Wrangling Script
+
+Much work needed to be done to convert the data file, ftp://ftp.ncdc.noaa.gov/pub/data/ghcn/daily/ghcnd_gsn.tar.gz, to a manageable subset and compressed into a small R data image.
+
+Converts from GHCN-GSN
+
+See loaddata.R source code at: https://github.com/cgd62/devdataprod/blob/master/loaddata.R
+
 ---
 
 ## References
 
 Descriptions:
+
 https://gis.ncdc.noaa.gov/geoportal/catalog/search/resource/details.page?id=gov.noaa.ncdc:C00861
+
 http://www.wmo.int/pages/prog/gcos/Publications/GCOS-144_en.pdf
 
-Original Paper:
+Original Paper Describing the GHCN Database:
+
 Menne, M.J., I. Durre, R.S. Vose, B.E. Gleason, and T.G. Houston, 2012a:  An overview 
 of the Global Historical Climatology Network-Daily Database.  Journal of Atmospheric 
 and Oceanic Technology, 29, 897-910.
 
 Dataset Version:
+
 Menne, M.J., I. Durre, B. Korzeniewski, S. McNeal, K. Thomas, X. Yin, S. Anthony, R. Ray, 
 R.S. Vose, B.E.Gleason, and T.G. Houston, 2012: Global Historical Climatology Network - 
 Daily (GHCN-Daily), Version 3.12-upd-2014091905.
@@ -28,23 +52,20 @@ ftp://ftp.ncdc.noaa.gov/pub/data/ghcn/daily/ghcnd_gsn.tar.gz
 
 ---
 
-## Load Data
-
-See loaddata.R
-
----
-
 ## Slide with R Code and Output
 
+R Information about the data set
+
 ```{r}
-summary(cars)
+load("WeatherApp/data/All.dat")
 ```
 
----
+There are `r nrow(states)` states or regions.
 
-## Slide with Plot
+There are `r nrow(stns)` total.
 
-```{r, echo=FALSE}
-plot(cars)
-```
+There are `r nrow(meas)` total measurements for the above states and stations.
+
+The date range of measurements is `r min(meas[,"time"])` to `r max(meas[,"time"])`
+
 
