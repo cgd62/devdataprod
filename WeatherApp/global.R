@@ -1,12 +1,9 @@
 # per application stuff
-library(shiny, quietly = T)
-library(dplyr,warn.conflicts=F,quietly = T)
-library(reshape2, quietly = T)
-library(e1071, quietly=T)
+library(dplyr)
 
 load("data/ALL.dat")
 
-bdate <- "2000-01-01"
+bdate <- "2013-01-01"
 edate <- "2014-09-30"
 
 stnstable <- stns %.%

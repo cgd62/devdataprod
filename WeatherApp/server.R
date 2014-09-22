@@ -1,15 +1,15 @@
-library(shiny, quietly = T)
-library(dplyr,warn.conflicts=F,quietly = T)
-library(reshape2, quietly = T)
-library(e1071, quietly=T)
+library(shiny)
+library(dplyr)
 
 shinyServer(function(input, output, session) {
 
     output$stationtable <- renderDataTable({
-        stnstable %.%
-            filter(
-                is.null(input$statelist) | State %in% input$statelist
-            )
+        if(is.null(input$statelist)) {
+          stnstable
+        } else {
+          stnstable %.%
+            filter(State %in% input$statelist)
+        }
     })
     
     output$tempGraph <- renderPlot({

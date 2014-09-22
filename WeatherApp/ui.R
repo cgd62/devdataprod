@@ -1,7 +1,4 @@
-library(shiny, quietly = T)
-library(dplyr,warn.conflicts=F,quietly = T)
-library(reshape2, quietly = T)
-library(e1071, quietly=T)
+library(shiny)
 
 shinyUI(
     fluidPage(
@@ -11,7 +8,8 @@ shinyUI(
         
         column(4,
                wellPanel(
-                   selectInput("statelist", "States", c("All states"="", structure(states$code, names=states$name)), multiple=TRUE),
+                   selectInput("statelist", "States", c("All states"="", structure(states$code, names=states$name)), 
+                                multiple=TRUE),
                    dateRangeInput("datrng","Dates",bdate,edate,startview = "year")
                )
         ),
