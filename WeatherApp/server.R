@@ -1,3 +1,7 @@
+library(shiny, quietly = T)
+library(dplyr,warn.conflicts=F,quietly = T)
+library(reshape2, quietly = T)
+library(e1071, quietly=T)
 
 shinyServer(function(input, output, session) {
 

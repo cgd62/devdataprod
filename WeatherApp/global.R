@@ -1,7 +1,8 @@
 # per application stuff
 library(shiny, quietly = T)
-library(dplyr,quietly = T)
+library(dplyr,warn.conflicts=F,quietly = T)
 library(reshape2, quietly = T)
+library(e1071, quietly=T)
 
 load("data/ALL.dat")
 
