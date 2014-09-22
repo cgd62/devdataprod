@@ -1,14 +1,12 @@
-library(shiny)
-library(dplyr)
 
 shinyServer(function(input, output, session) {
 
     output$stationtable <- renderDataTable({
         if(is.null(input$statelist)) {
-          stnstable
+          stns
         } else {
-          stnstable %.%
-            filter(State %in% input$statelist)
+          stns %.%
+            filter(state %in% input$statelist)
         }
     })
     
@@ -17,9 +15,9 @@ shinyServer(function(input, output, session) {
         if (is.null(input$statelist))
             return(NULL)
 
-          stl <- input$statelist
-          sdt <- input$datrng[1]
-          edt <- input$datrng[2]
+        stl <- input$statelist
+        sdt <- input$datrng[1]
+        edt <- input$datrng[2]
         
         statset <- stns[stns$state %in% stl,"id"]
         
